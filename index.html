@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radha Rani — Computer Science Engineer</title>
+<meta name="description" content="Portfolio of Radha Rani — full-stack developer and CS student at VIT Bhopal, building tools across deepfake detection, maternal health, and environmental data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #0B0A08;
+    --panel: #15130F;
+    --panel-alt: #1C1914;
+    --line: #2C2820;
+    --text: #F6F0E4;
+    --text-muted: #B7AC99;
+    --text-faint: #7C7361;
+    --amber: #F0A93A;
+    --amber-soft: rgba(240,169,58,0.16);
+    --amber-dim: #C4842A;
+    --max-w: 1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; letter-spacing:-0.01em; }
+  a{color:inherit;}
+  ::selection{ background:var(--amber); color:#161006; }
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
+
+  /* ---------- overall layout: sidebar + content ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns: 340px 1fr;
+    min-height:100vh;
+  }
+  @media (max-width: 940px){
+    .layout{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- sidebar ---------- */
+  .sidebar{
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    padding:44px 34px 34px;
+    display:flex;
+    flex-direction:column;
+  }
+  @media (max-width: 940px){
+    .sidebar{ position:relative; height:auto; border-right:none; border-bottom:1px solid var(--line); }
+  }
+
+  .avatar-block{ position:relative; width:132px; height:132px; margin-bottom:26px; }
+  .avatar-glow{
+    position:absolute;
+    inset:-30px;
+    background: radial-gradient(circle, var(--amber-soft) 0%, transparent 70%);
+    filter: blur(6px);
+    z-index:0;
+  }
+  .avatar{
+    position:relative;
+    z-index:1;
+    width:132px; height:132px;
+    border-radius:22px;
+    background:var(--panel-alt);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .avatar-initials{
+    position:absolute;
+    font-family:'Fraunces', serif;
+    font-size:2.6rem;
+    font-weight:600;
+    color:var(--amber);
+  }
+  .avatar img{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; }
+
+  .sidebar-name{
+    font-size:2.1rem;
+    line-height:1.08;
+    color:var(--text);
+  }
+  .sidebar-role{
+    margin-top:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    color:var(--amber);
+    text-transform:uppercase;
+  }
+  .sidebar-bio{
+    margin-top:18px;
+    font-size:0.94rem;
+    color:var(--text-muted);
+    max-width:34ch;
+  }
+
+  .info-list{
+    margin-top:32px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .info-row{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    font-size:0.86rem;
+  }
+  .info-row svg{ flex-shrink:0; margin-top:2px; }
+  .info-label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin-bottom:2px;
+  }
+  .info-row a{ color:var(--text); text-decoration:none; word-break:break-word; }
+  .info-row a:hover{ color:var(--amber); }
+
+  .sidebar-socials{
+    margin-top:auto;
+    padding-top:32px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .social-btn{
+    flex:1;
+    min-width:110px;
+    text-align:center;
+    padding:11px 14px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.74rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    text-decoration:none;
+    color:var(--text);
+    transition:border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .social-btn:hover{ border-color:var(--amber); color:var(--amber); background:var(--amber-soft); }
+
+  /* ---------- content shell ---------- */
+  .content{ min-width:0; }
+  .wrap{ max-width:var(--max-w); margin:0 auto; padding:0 40px; }
+  @media (max-width:640px){ .wrap{ padding:0 22px; } }
+
+  .content-nav{
+    position:sticky;
+    top:0;
+    z-index:40;
+    background:rgba(11,10,8,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .content-nav-inner{
+    display:flex;
+    gap:30px;
+    padding:20px 40px;
+    max-width:var(--max-w);
+    margin:0 auto;
+    overflow-x:auto;
+  }
+  @media (max-width:640px){ .content-nav-inner{ padding:16px 22px; gap:20px; } }
+  .content-nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--text-muted);
+    white-space:nowrap;
+    padding-bottom:3px;
+    border-bottom:1px solid transparent;
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .content-nav a:hover{ color:var(--amber); border-color:var(--amber); }
+
+  /* ---------- hero (inside content) ---------- */
+  .hero{ padding:80px 0 64px; position:relative; overflow:hidden; }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 82% 12%, var(--amber-soft), transparent 55%);
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; max-width:56ch; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:20px;
+  }
+  .eyebrow::before{
+    content:""; width:8px; height:8px; background:var(--amber); border-radius:50%;
+    box-shadow:0 0 0 4px var(--amber-soft);
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.4vw, 4rem);
+    line-height:1.04;
+  }
+  .hero h1 em{ font-style:italic; color:var(--amber); }
+  .hero p.lede{ margin-top:22px; font-size:1.08rem; color:var(--text-muted); }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 22px; border-radius:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:0.8rem;
+    text-transform:uppercase; letter-spacing:0.05em; text-decoration:none;
+    transition:transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-primary{ background:var(--amber); color:#191207; font-weight:600; }
+  .btn-primary:hover{ transform:translateY(-2px); background:#f5b855; }
+  .btn-ghost{ border:1px solid var(--line); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--amber); color:var(--amber); transform:translateY(-2px); }
+
+  .gauge-block{ margin-top:56px; max-width:280px; }
+  .gauge-needle{ transform-origin:100px 100px; animation: sweep 1.6s cubic-bezier(.22,1.4,.36,1) forwards; }
+  @keyframes sweep{ from{ transform:rotate(-95deg);} to{ transform:rotate(28deg);} }
+  .gauge-label{ font-family:'IBM Plex Mono', monospace; font-size:0.6rem; fill:var(--text-faint); letter-spacing:0.08em; }
+  .gauge-caption{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--text-faint); margin-top:4px; letter-spacing:0.04em; }
+
+  /* ---------- section shell ---------- */
+  section{ padding:72px 0; border-top:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; gap:16px; margin-bottom:38px; flex-wrap:wrap; }
+  .section-tag{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color:var(--amber-dim); letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap; }
+  .section-head h2{ font-size:clamp(1.55rem, 2.8vw, 2rem); }
+  .section-rule{ flex:1; height:1px; background:var(--line); min-width:40px; }
+
+  /* skills */
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .skill-cat{ background:var(--panel); padding:24px; }
+  .skill-cat h3{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--amber); font-weight:500; margin-bottom:14px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; padding:6px 10px; border:1px solid var(--line); border-radius:6px; color:var(--text-muted); }
+
+  /* projects */
+  .project{ display:grid; grid-template-columns:220px 1fr; gap:32px; padding:32px 0; border-top:1px solid var(--line); }
+  .project:first-of-type{ border-top:none; }
+  @media (max-width:760px){ .project{ grid-template-columns:1fr; gap:14px; } }
+  .project-id{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color:var(--text-faint); letter-spacing:0.06em; }
+  .project-status{ display:inline-block; margin-top:10px; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; padding:4px 8px; border:1px solid var(--amber-dim); color:var(--amber); border-radius:6px; }
+  .project h3{ font-size:1.4rem; margin-bottom:8px; color:var(--text); }
+  .project p.desc{ color:var(--text-muted); max-width:62ch; }
+  .project ul{ margin:14px 0 0; padding-left:18px; color:var(--text-muted); }
+  .project ul li{ margin-bottom:6px; }
+  .project-meta{ margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .project-links{ margin-left:auto; display:flex; gap:14px; }
+  .project-links a{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-decoration:none; color:var(--amber); border-bottom:1px solid transparent; }
+  .project-links a:hover{ border-color:var(--amber); }
+
+  /* leadership */
+  .lead-grid{ display:grid; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .lead-item{ background:var(--panel); padding:22px 26px; display:grid; grid-template-columns:240px 1fr; gap:20px; }
+  @media (max-width:700px){ .lead-item{ grid-template-columns:1fr; gap:6px; } }
+  .lead-item h3{ font-size:1.05rem; color:var(--text); }
+  .lead-item .role-org{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--text-faint); margin-top:4px; letter-spacing:0.04em; }
+  .lead-item p{ color:var(--text-muted); margin:0; }
+
+  /* education */
+  .edu-card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:28px 30px; margin-bottom:16px; }
+  .edu-card h3{ font-size:1.15rem; color:var(--text); }
+  .edu-meta{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--text-faint); margin-top:6px; }
+  .edu-stat{ margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--amber); }
+
+  /* certifications */
+  .cert-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:12px; }
+  .cert{ border:1px solid var(--line); border-radius:8px; padding:16px 18px; font-size:0.92rem; color:var(--text-muted); display:flex; gap:12px; align-items:flex-start; background:var(--panel); }
+  .cert .cert-year{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--amber); white-space:nowrap; }
+
+  /* contact / footer */
+  footer{ padding:80px 0 60px; border-top:1px solid var(--line); }
+  .contact-inner{ display:flex; flex-direction:column; align-items:flex-start; gap:26px; }
+  footer h2{ font-size:clamp(1.8rem,4vw,2.6rem); max-width:16ch; }
+  footer h2 em{ color:var(--amber); font-style:italic; }
+  .contact-links{ display:flex; flex-wrap:wrap; gap:16px; }
+  .contact-links a{ text-decoration:none; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; padding:12px 18px; border:1px solid var(--line); border-radius:8px; color:var(--text); transition:border-color 0.2s ease, color 0.2s ease; }
+  .contact-links a:hover{ border-color:var(--amber); color:var(--amber); }
+  .footnote{ margin-top:40px; font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--text-faint); max-width:70ch; }
+
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="avatar-block">
+      <div class="avatar-glow"></div>
+      <div class="avatar">
+        <span class="avatar-initials">RR</span>
+        <img src="photo.jpg" alt="Radha Rani" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <h1 class="sidebar-name">Radha Rani</h1>
+    <p class="sidebar-role">Full-Stack Developer</p>
+    <p class="sidebar-bio">B.Tech CSE student at VIT Bhopal, building tools across AI, data, and the web.</p>
+
+    <div class="info-list">
+      <div class="info-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F0A93A" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 6.5 12 13l9-6.5"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+        <span><span class="info-label">Email</span><a href="mailto:hare81675@gmail.com">hare81675@gmail.com</a></span>
+      </div>
+      <div class="info-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F0A93A" stroke-width="2"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span><span class="info-label">Location</span><span>Bhopal, Madhya Pradesh</span></span>
+      </div>
+      <div class="info-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F0A93A" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg>
+        <span><span class="info-label">Studying</span><span>B.Tech CSE, VIT Bhopal · 2027</span></span>
+      </div>
+    </div>
+
+    <div class="sidebar-socials">
+      <a class="social-btn" href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub</a>
+      <a class="social-btn" href="https://www.linkedin.com/in/radha-rani-04351329a" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <nav class="content-nav">
+      <div class="content-nav-inner">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <main>
+
+      <!-- HERO / ABOUT -->
+      <section id="about" style="border-top:none;">
+        <div class="wrap hero">
+          <div class="hero-inner">
+            <p class="eyebrow">B.Tech Computer Science &middot; VIT Bhopal</p>
+            <h1>I turn <em>messy data</em> into clear signals.</h1>
+            <p class="lede">Full-stack developer building tools that make hard-to-read information legible — flagging deepfakes, screening high-risk pregnancies, and mapping heavy-metal pollution in water. Currently sharpening that craft one project at a time.</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#projects">View projects</a>
+              <a class="btn btn-ghost" href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+          <div class="gauge-block">
+            <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+              <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#2C2820" stroke-width="10" stroke-linecap="round"/>
+              <path d="M20,100 A80,80 0 0,1 100,20" fill="none" stroke="#4A4030" stroke-width="10" stroke-linecap="round"/>
+              <path d="M100,20 A80,80 0 0,1 180,100" fill="none" stroke="#C4842A" stroke-width="10" stroke-linecap="round" opacity="0.6"/>
+              <text x="30" y="118" class="gauge-label">LOW RISK</text>
+              <text x="140" y="118" class="gauge-label">FLAGGED</text>
+              <g class="gauge-needle">
+                <line x1="100" y1="100" x2="100" y2="34" stroke="#F0A93A" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="100" cy="100" r="7" fill="#F0A93A"/>
+              </g>
+            </svg>
+            <p class="gauge-caption">// confidence readout, Deepfake Detector UI</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">01 / Stack</span>
+            <h2>What I build with</h2>
+            <div class="section-rule"></div>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-cat">
+              <h3>Languages</h3>
+              <div class="chip-row"><span class="chip">Java</span><span class="chip">C++</span><span class="chip">Python</span></div>
+            </div>
+            <div class="skill-cat">
+              <h3>Frontend</h3>
+              <div class="chip-row"><span class="chip">React (Hooks)</span><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">Tailwind</span><span class="chip">Responsive Design</span></div>
+            </div>
+            <div class="skill-cat">
+              <h3>Cloud &amp; DevOps</h3>
+              <div class="chip-row"><span class="chip">AWS EC2</span><span class="chip">AWS S3</span><span class="chip">AWS Lambda</span><span class="chip">Git</span></div>
+            </div>
+            <div class="skill-cat">
+              <h3>Data &amp; Analysis</h3>
+              <div class="chip-row"><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">CSV Pipelines</span><span class="chip">Folium Maps</span></div>
+            </div>
+            <div class="skill-cat">
+              <h3>Tools</h3>
+              <div class="chip-row"><span class="chip">Android Studio</span><span class="chip">VS Code</span><span class="chip">GitHub</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">02 / Case Files</span>
+            <h2>Selected projects</h2>
+            <div class="section-rule"></div>
+          </div>
+
+          <div class="project">
+            <div>
+              <div class="project-id">FILE — DEEPFAKE-01</div>
+              <div class="project-status">Web App</div>
+            </div>
+            <div>
+              <h3>Deepfake Detection Result Interface</h3>
+              <p class="desc">A full-stack app for spotting manipulated images and video, built around a drag-and-drop upload flow and a results page designed to be read at a glance.</p>
+              <ul>
+                <li>Flask + SQLite backend serving detection results to a responsive JS frontend.</li>
+                <li>Results rendered as a visual speedometer, turning a raw confidence score into an instantly readable verdict.</li>
+              </ul>
+              <div class="project-meta">
+                <span class="chip">Flask</span><span class="chip">SQLAlchemy</span><span class="chip">SQLite</span><span class="chip">SVG</span>
+                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div>
+              <div class="project-id">FILE — MATRICARE-02</div>
+              <div class="project-status">Mobile-First</div>
+            </div>
+            <div>
+              <h3>Matricare — AI-Powered Maternal Health Assistant</h3>
+              <p class="desc">A mobile-first assistant designed for rural India, built to flag high-risk pregnancies and generate personalized nutrition plans even where connectivity is unreliable.</p>
+              <ul>
+                <li>Combines TensorFlow Lite, XGBoost, Mistral, Whisper, and M2M-100 for on-device risk scoring, voice input, and regional-language translation.</li>
+                <li>Consent-based local data storage and a touch-first UI built for low digital literacy.</li>
+              </ul>
+              <div class="project-meta">
+                <span class="chip">React + Tailwind</span><span class="chip">TensorFlow Lite</span><span class="chip">XGBoost</span><span class="chip">Whisper</span>
+                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div>
+              <div class="project-id">FILE — NEERTRACE-03</div>
+              <div class="project-status">Data Tool</div>
+            </div>
+            <div>
+              <h3>NeerTrace — Heavy Metal Pollution Indices Calculator</h3>
+              <p class="desc">A real-time water quality monitoring tool that computes heavy-metal pollution indices for researchers and policymakers tracking contamination hotspots.</p>
+              <ul>
+                <li>Supports CSV batch upload and manual entry, with interactive Folium maps and downloadable reports.</li>
+                <li>Repository includes screenshots and a live demo for reproducibility.</li>
+              </ul>
+              <div class="project-meta">
+                <span class="chip">Streamlit</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Folium</span>
+                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a><a href="#" target="_blank" rel="noopener">Demo ↗</a></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project">
+            <div>
+              <div class="project-id">FILE — EMS-04</div>
+              <div class="project-status">Internship</div>
+            </div>
+            <div>
+              <h3>Employee Management System</h3>
+              <p class="desc">A web-based system for managing employee records, tasks, departments, and leave — built during an internship with separate Admin and Employee modules.</p>
+              <ul>
+                <li>Secure login, task assignment and tracking, and leave management on a Flask + MySQL backend.</li>
+                <li>Profile photo uploads and dashboard analytics for at-a-glance team status.</li>
+              </ul>
+              <div class="project-meta">
+                <span class="chip">Flask</span><span class="chip">MySQL</span><span class="chip">Bootstrap</span>
+                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- LEADERSHIP -->
+      <section id="leadership">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">03 / Beyond Code</span>
+            <h2>Design leadership</h2>
+            <div class="section-rule"></div>
+          </div>
+          <div class="lead-grid">
+            <div class="lead-item">
+              <div><h3>Co-Lead, Design Team</h3><div class="role-org">Fintech Club, VIT Bhopal · Oct 2024 – Dec 2026</div></div>
+              <p>Led creative direction and branding, supervised design workflows, and coordinated with cross-functional teams to deliver visual content for club events and promotions.</p>
+            </div>
+            <div class="lead-item">
+              <div><h3>Co-Lead, Design Team</h3><div class="role-org">Edu4u Club, VIT Bhopal</div></div>
+              <p>Managed and mentored a team of designers, oversaw event branding and promotional materials, and kept visual identity consistent across club activities.</p>
+            </div>
+            <div class="lead-item">
+              <div><h3>Core Member, Design Team</h3><div class="role-org">Insight Club, VIT Bhopal</div></div>
+              <p>Contributed to planning and execution of club events and supported operational and promotional activities alongside a cross-functional team.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EDUCATION -->
+      <section id="education">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">04 / Education</span>
+            <h2>Background</h2>
+            <div class="section-rule"></div>
+          </div>
+          <div class="edu-card">
+            <h3>Bachelor of Technology — Computer Science Engineering</h3>
+            <div class="edu-meta"><span>VIT Bhopal University, Bhopal, MP</span><span>Aug 2023 – Aug 2027</span></div>
+            <div class="edu-stat">CGPA — 8.37</div>
+          </div>
+          <div class="edu-card">
+            <h3>Higher Secondary Education — CBSE (Intermediate Science)</h3>
+            <div class="edu-meta"><span>DAV Public School, Arrah, Bihar</span><span>May 2014 – May 2022</span></div>
+            <div class="edu-stat">Class X — 92% &nbsp;·&nbsp; Class XII — 85%</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATIONS -->
+      <section id="certifications">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">05 / Certifications</span>
+            <h2>Coursework &amp; credentials</h2>
+            <div class="section-rule"></div>
+          </div>
+          <div class="cert-grid">
+            <div class="cert"><span class="cert-year">2026</span><span>Summer Internship Completion Certificate — BSPTCL</span></div>
+            <div class="cert"><span class="cert-year">2026</span><span>Google IT Support Certificate — 6 courses</span></div>
+            <div class="cert"><span class="cert-year">2026</span><span>NPTEL Elite Certificate — Marketing Analytics (98%, Top 5%)</span></div>
+            <div class="cert"><span class="cert-year">2025</span><span>NPTEL Elite Certificate — Introduction to Machine Learning (75%, Top 5%)</span></div>
+            <div class="cert"><span class="cert-year">2025</span><span>AWS Certificate — Technical Essentials</span></div>
+            <div class="cert"><span class="cert-year">2025</span><span>GenAI Hackathon Mumbai — Grand Finale, Top 75</span></div>
+            <div class="cert"><span class="cert-year">—</span><span>Coursera — The Bits and Bytes of Computer Networking</span></div>
+            <div class="cert"><span class="cert-year">—</span><span>TCS CodeVita Season 13 — Global Rank 7786</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <footer id="contact">
+        <div class="wrap contact-inner">
+          <h2>Let's build something <em>worth reading</em>.</h2>
+          <div class="contact-links">
+            <a href="mailto:hare81675@gmail.com">hare81675@gmail.com ↗</a>
+            <a href="https://www.linkedin.com/in/radha-rani-04351329a" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+          <p class="footnote">Radha Rani — B.Tech CSE, VIT Bhopal. Built with plain HTML/CSS and hosted on GitHub Pages. Email link opens your device's default mail app — if nothing happens on click, your browser/OS may not have one set as default; the address above can always be copied manually.</p>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+</body>
+</html>
