@@ -4,939 +4,865 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radha Rani — Full-Stack &amp; AI Engineer</title>
-<meta name="description" content="Portfolio of Radha Rani — full-stack and AI engineer at VIT Bhopal, building RAG platforms, maternal-health tools, and deepfake detectors that work outside the demo.">
+<meta name="description" content="Radha Rani — full-stack and AI engineer at VIT Bhopal. RAG platforms, evidence-driven builds, design leadership.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,850&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
 
-  :root{
-    --bg: #0A0910;
-    --panel: #14121C;
-    --panel-alt: #1B1826;
-    --line: #2A2636;
-    --text: #F3F0FA;
-    --text-muted: #ADA6C4;
-    --text-faint: #746C90;
-    --violet: #8B7CFA;
-    --teal: #2FD9C4;
-    --amber: #F5A83C;
-    --amber-soft: rgba(245,168,60,0.14);
-    --amber-dim: #C4822E;
-    --gradient: linear-gradient(90deg, var(--violet) 0%, var(--teal) 52%, var(--amber) 100%);
-    --max-w: 1180px;
-  }
+:root{
+  --ink:#0B0A0F;
+  --cork:#1D1712;
+  --cork-hi:#241C15;
+  --paper:#F3ECDA;
+  --paper-dark:#E7DBBC;
+  --paper-line:#00000014;
+  --violet:#8377F5;
+  --teal:#22D3B8;
+  --amber:#F0A63A;
+  --string:#C6453B;
+  --text:#F1ECFB;
+  --muted:#A79CC7;
+  --faint:#6F6690;
+  --line:rgba(255,255,255,0.09);
+  --max-w:1180px;
+  --grad: linear-gradient(100deg, var(--violet) 0%, var(--teal) 55%, var(--amber) 100%);
+}
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
-  }
-  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; letter-spacing:-0.01em; }
-  a{color:inherit;}
-  ::selection{ background:var(--teal); color:#0A0910; }
-  :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
-  .mono{ font-family:'IBM Plex Mono', monospace; }
-  .grad-text{
-    background:var(--gradient);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--text);
+  font-family:'IBM Plex Sans', sans-serif;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  cursor:none;
+}
+@media (pointer:coarse){ body{ cursor:auto; } }
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+}
+h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; letter-spacing:-0.01em; }
+a{color:inherit;}
+::selection{ background:var(--teal); color:#0A0910; }
+:focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
+.mono{ font-family:'IBM Plex Mono', monospace; }
+.hand{ font-family:'Caveat', cursive; }
+.grad-text{ background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+img{ max-width:100%; }
 
-  /* ---------- overall layout: sidebar + content ---------- */
-  .layout{
-    display:grid;
-    grid-template-columns: 340px 1fr;
-    min-height:100vh;
-  }
-  @media (max-width: 940px){
-    .layout{ grid-template-columns: 1fr; }
-  }
+/* ---------- custom cursor (magnifier) ---------- */
+#cursor{
+  position:fixed; top:0; left:0; width:34px; height:34px;
+  border:2px solid var(--amber); border-radius:50%;
+  pointer-events:none; z-index:999; mix-blend-mode:normal;
+  transform:translate(-50%,-50%);
+  transition:width .18s ease, height .18s ease, border-color .18s ease, background .18s ease;
+  background:rgba(240,166,58,0.06);
+}
+#cursor::after{
+  content:""; position:absolute; right:-9px; bottom:-9px; width:11px; height:2px;
+  background:var(--amber); transform:rotate(45deg); border-radius:2px;
+}
+#cursor.big{ width:64px; height:64px; border-color:var(--teal); background:rgba(34,211,184,0.08); }
+@media (pointer:coarse){ #cursor{ display:none; } }
 
-  /* ---------- sidebar ---------- */
-  .sidebar{
-    position:sticky;
-    top:0;
-    align-self:start;
-    height:100vh;
-    background:var(--panel);
-    border-right:1px solid var(--line);
-    padding:44px 34px 34px;
-    display:flex;
-    flex-direction:column;
-    overflow-y:auto;
-  }
-  @media (max-width: 940px){
-    .sidebar{ position:relative; height:auto; border-right:none; border-bottom:1px solid var(--line); }
-  }
+/* ---------- cork texture backgrounds ---------- */
+.cork-bg{
+  background-color:var(--cork);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.035) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03) 0, transparent 45%),
+    repeating-radial-gradient(circle at 0 0, transparent 0, transparent 2px, rgba(0,0,0,0.09) 3px);
+}
 
-  .avatar-block{ position:relative; width:126px; height:126px; margin-bottom:26px; }
-  .avatar-glow{
-    position:absolute;
-    inset:-30px;
-    background: conic-gradient(from 0deg, var(--violet), var(--teal), var(--amber), var(--violet));
-    filter: blur(22px);
-    opacity:0.35;
-    z-index:0;
-    border-radius:50%;
-    animation: spin 10s linear infinite;
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  .avatar{
-    position:relative;
-    z-index:1;
-    width:126px; height:126px;
-    border-radius:22px;
-    background:var(--panel-alt);
-    border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-  }
-  .avatar-initials{
-    position:absolute;
-    font-family:'Fraunces', serif;
-    font-size:2.5rem;
-    font-weight:600;
-    background:var(--gradient);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .avatar img{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; }
+/* ---------- top nav: folder tabs ---------- */
+.topnav{
+  position:sticky; top:0; z-index:60;
+  background:rgba(11,10,15,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topnav-inner{
+  max-width:var(--max-w); margin:0 auto; padding:0 40px;
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+  height:66px;
+}
+@media (max-width:760px){ .topnav-inner{ padding:0 20px; } }
+.brandmark{
+  display:flex; align-items:center; gap:10px;
+  font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.04em;
+  text-decoration:none; color:var(--text);
+  flex-shrink:0;
+}
+.brandmark .dot{ width:8px; height:8px; border-radius:50%; background:var(--grad); flex-shrink:0; }
+.brandmark b{ color:var(--amber); }
+.tabs{ display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+.tabs::-webkit-scrollbar{ display:none; }
+.tabs a{
+  font-family:'IBM Plex Mono', monospace; font-size:0.71rem; letter-spacing:0.05em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); white-space:nowrap;
+  padding:10px 14px; border:1px solid transparent; border-bottom:none; border-radius:7px 7px 0 0;
+  transition:color .2s ease, background .2s ease, border-color .2s ease;
+}
+.tabs a:hover{ color:var(--text); background:rgba(255,255,255,0.04); border-color:var(--line); }
+@media (max-width:900px){ .tabs a{ padding:8px 10px; font-size:0.66rem; } }
+@media (max-width:640px){ .tabs{ display:none; } }
 
-  .sidebar-name{
-    font-size:2.05rem;
-    line-height:1.08;
-    color:var(--text);
-  }
-  .sidebar-role{
-    margin-top:10px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.8rem;
-    letter-spacing:0.04em;
-    color:var(--teal);
-    text-transform:uppercase;
-  }
-  .sidebar-bio{
-    margin-top:18px;
-    font-size:0.94rem;
-    color:var(--text-muted);
-    max-width:34ch;
-  }
+/* ---------- hero ---------- */
+.hero{ position:relative; overflow:hidden; padding:64px 0 70px; }
+.hero::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image: radial-gradient(circle at 88% 6%, rgba(131,119,245,0.16), transparent 52%),
+                     radial-gradient(circle at 6% 92%, rgba(34,211,184,0.10), transparent 50%);
+}
+.wrap{ max-width:var(--max-w); margin:0 auto; padding:0 40px; position:relative; }
+@media (max-width:640px){ .wrap{ padding:0 20px; } }
 
-  .status-pill{
-    margin-top:20px;
-    display:inline-flex; align-items:center; gap:8px;
-    padding:7px 12px;
-    border:1px solid var(--line);
-    border-radius:100px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.7rem;
-    color:var(--text-muted);
-    letter-spacing:0.03em;
-    width:fit-content;
-  }
-  .status-dot{ width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px rgba(47,217,196,0.18); flex-shrink:0; animation: pulse 2s ease-in-out infinite; }
-  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.4; } }
+.hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:52px; align-items:start; }
+@media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; } }
 
-  .info-list{
-    margin-top:28px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .info-row{
-    display:flex;
-    align-items:flex-start;
-    gap:12px;
-    font-size:0.86rem;
-  }
-  .info-row svg{ flex-shrink:0; margin-top:2px; }
-  .info-label{
-    display:block;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.65rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--text-faint);
-    margin-bottom:2px;
-  }
-  .info-row a{ color:var(--text); text-decoration:none; word-break:break-word; }
-  .info-row a:hover{ color:var(--teal); }
+.case-tag{
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.09em; text-transform:uppercase;
+  color:var(--amber); border:1px solid rgba(240,166,58,0.35); background:rgba(240,166,58,0.07);
+  padding:6px 12px; border-radius:100px; margin-bottom:26px;
+}
+.case-tag .pulse{ width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px rgba(34,211,184,0.18); animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
 
-  .sidebar-socials{
-    margin-top:auto;
-    padding-top:30px;
-    display:flex;
-    gap:9px;
-    flex-wrap:wrap;
-  }
-  .social-btn{
-    flex:1;
-    min-width:96px;
-    text-align:center;
-    padding:10px 12px;
-    border:1px solid var(--line);
-    border-radius:8px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.7rem;
-    text-transform:uppercase;
-    letter-spacing:0.04em;
-    text-decoration:none;
-    color:var(--text);
-    transition:border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-  }
-  .social-btn:hover{ border-color:var(--teal); color:var(--teal); background:rgba(47,217,196,0.08); transform:translateY(-2px); }
+/* stamp effect on name */
+.stamp-wrap{ position:relative; display:inline-block; }
+.hero h1{
+  font-size:clamp(2.4rem, 5.6vw, 4.1rem); line-height:1.03; color:var(--text);
+  transform:rotate(-1.4deg) scale(1.4);
+  opacity:0;
+  animation: stampHit .6s cubic-bezier(.2,1.6,.4,1) .15s forwards;
+}
+@keyframes stampHit{
+  0%{ opacity:0; transform:rotate(-1.4deg) scale(2.2); filter:blur(2px); }
+  60%{ opacity:1; transform:rotate(-1.4deg) scale(0.96); filter:blur(0); }
+  80%{ transform:rotate(-1.4deg) scale(1.04); }
+  100%{ opacity:1; transform:rotate(-1.4deg) scale(1); }
+}
+.hero h1 .grad-text{ display:inline-block; }
 
-  /* ---------- content shell ---------- */
-  .content{ min-width:0; }
-  .wrap{ max-width:var(--max-w); margin:0 auto; padding:0 40px; }
-  @media (max-width:640px){ .wrap{ padding:0 22px; } }
+.redact{
+  position:relative; margin-top:22px; max-width:54ch; font-size:1.05rem; color:var(--text-muted, var(--muted));
+}
+.redact-line{ position:relative; overflow:hidden; display:block; }
+.redact-line::after{
+  content:""; position:absolute; inset:0; background:var(--paper-dark);
+  transform-origin:left; animation: unredact .55s ease forwards;
+  animation-delay:calc(var(--d) * 1s);
+}
+@keyframes unredact{ to{ transform:scaleX(0); } }
 
-  .content-nav{
-    position:sticky;
-    top:0;
-    z-index:40;
-    background:rgba(10,9,16,0.86);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .content-nav-inner{
-    display:flex;
-    gap:28px;
-    padding:20px 40px;
-    max-width:var(--max-w);
-    margin:0 auto;
-    overflow-x:auto;
-  }
-  @media (max-width:640px){ .content-nav-inner{ padding:16px 22px; gap:18px; } }
-  .content-nav a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.74rem;
-    letter-spacing:0.07em;
-    text-transform:uppercase;
-    text-decoration:none;
-    color:var(--text-muted);
-    white-space:nowrap;
-    padding-bottom:3px;
-    border-bottom:1px solid transparent;
-    transition:color 0.2s ease, border-color 0.2s ease;
-  }
-  .content-nav a:hover{ color:var(--teal); border-color:var(--teal); }
+.hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
+.btn{
+  position:relative;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 22px; border-radius:4px;
+  font-family:'IBM Plex Mono', monospace; font-size:0.78rem;
+  text-transform:uppercase; letter-spacing:0.05em; text-decoration:none;
+  transition:transform .12s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.btn-primary{ background:var(--amber); color:#1a1206; font-weight:600; box-shadow:0 10px 24px -12px rgba(240,166,58,0.55); }
+.btn-primary:hover{ transform:translateY(-2px); }
+.btn-ghost{ border:1px solid var(--line); color:var(--text); }
+.btn-ghost:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
+.tape{
+  position:absolute; top:-9px; left:16px; width:46px; height:16px;
+  background:rgba(243,236,218,0.22); border:1px solid rgba(243,236,218,0.28);
+  transform:rotate(-4deg);
+}
 
-  /* ---------- hero ---------- */
-  .hero{ padding:76px 0 60px; position:relative; overflow:hidden; }
-  .hero::before{
-    content:"";
-    position:absolute; inset:0;
-    background-image: radial-gradient(circle at 85% 8%, rgba(139,124,250,0.14), transparent 55%);
-    pointer-events:none;
-  }
-  .hero-inner{ position:relative; max-width:58ch; }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.76rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--amber);
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:20px;
-  }
-  .eyebrow::before{
-    content:""; width:8px; height:8px; border-radius:50%;
-    background:var(--gradient);
-  }
-  .hero h1{
-    font-size:clamp(2.5rem, 5.2vw, 3.85rem);
-    line-height:1.05;
-  }
-  .hero p.lede{ margin-top:22px; font-size:1.06rem; color:var(--text-muted); max-width:52ch; }
-  .hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
-  .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:13px 22px; border-radius:8px;
-    font-family:'IBM Plex Mono', monospace; font-size:0.8rem;
-    text-transform:uppercase; letter-spacing:0.05em; text-decoration:none;
-    transition:transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-  }
-  .btn-primary{ background:var(--amber); color:#191207; font-weight:600; }
-  .btn-primary:hover{ transform:translateY(-2px); background:#f5b855; }
-  .btn-ghost{ border:1px solid var(--line); color:var(--text); }
-  .btn-ghost:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
+/* ---------- field log terminal ---------- */
+.log-card{
+  background:#0F0D14; border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,0.7);
+}
+.log-head{
+  display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--line);
+  background:#161320;
+}
+.log-dot{ width:9px; height:9px; border-radius:50%; }
+.log-dot.r{ background:#E5605A; } .log-dot.y{ background:#E7B84B; } .log-dot.g{ background:#4FBE7A; }
+.log-title{ margin-left:8px; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--faint); }
+.log-body{ padding:20px 22px 24px; font-family:'IBM Plex Mono', monospace; font-size:0.82rem; min-height:250px; }
+.log-line{ margin:0 0 5px; white-space:pre-wrap; word-break:break-word; }
+.log-idx{ color:var(--faint); }
+.log-prompt{ color:var(--teal); }
+.log-out{ color:var(--muted); }
+.log-out.accent{ color:var(--amber); }
+.log-cursor{ display:inline-block; width:8px; height:1em; margin-left:2px; background:var(--grad); vertical-align:text-bottom; animation:blink 1s step-end infinite; }
+@keyframes blink{ 50%{opacity:0;} }
 
-  /* ---------- terminal (signature element) ---------- */
-  .terminal-wrap{ margin-top:56px; position:relative; }
-  .terminal{
-    background:#0E0D14;
-    border:1px solid var(--line);
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 30px 70px -30px rgba(0,0,0,0.6);
-    max-width:620px;
-  }
-  .terminal-head{
-    display:flex; align-items:center; gap:8px;
-    padding:12px 16px;
-    border-bottom:1px solid var(--line);
-    background:var(--panel-alt);
-  }
-  .term-dot{ width:10px; height:10px; border-radius:50%; }
-  .term-dot.r{ background:#E5605A; }
-  .term-dot.y{ background:#E7B84B; }
-  .term-dot.g{ background:#4FBE7A; }
-  .terminal-title{
-    margin-left:8px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.72rem;
-    color:var(--text-faint);
-  }
-  .terminal-body{
-    padding:22px 24px 26px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.86rem;
-    min-height:230px;
-  }
-  @media (max-width:640px){ .terminal-body{ font-size:0.78rem; padding:18px 18px 22px; } }
-  .term-line{ margin:0 0 4px; white-space:pre-wrap; word-break:break-word; }
-  .term-prompt{ color:var(--teal); }
-  .term-out{ color:var(--text-muted); }
-  .term-out.accent{ color:var(--amber); }
-  .term-cursor{
-    display:inline-block; width:8px; height:1em; margin-left:2px;
-    background:var(--gradient);
-    vertical-align:text-bottom;
-    animation: blink 1s step-end infinite;
-  }
-  @keyframes blink{ 50%{ opacity:0; } }
+/* ---------- sections ---------- */
+section{ padding:74px 0; border-top:1px solid var(--line); position:relative; }
+.section-head{ display:flex; align-items:baseline; gap:16px; margin-bottom:14px; flex-wrap:wrap; }
+.section-tag{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--amber); letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap; border:1px solid rgba(240,166,58,0.3); padding:3px 9px; border-radius:100px; }
+.section-head h2{ font-size:clamp(1.5rem, 2.8vw, 2rem); }
+.section-sub{ margin:0 0 40px; color:var(--muted); max-width:62ch; font-size:0.96rem; }
 
-  /* ---------- section shell ---------- */
-  section{ padding:72px 0; border-top:1px solid var(--line); }
-  .section-head{ display:flex; align-items:baseline; gap:16px; margin-bottom:38px; flex-wrap:wrap; }
-  .section-tag{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color:var(--amber-dim); letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap; }
-  .section-head h2{ font-size:clamp(1.55rem, 2.8vw, 2rem); }
-  .section-rule{ flex:1; height:1px; background:var(--line); min-width:40px; }
-  .section-sub{ margin:-24px 0 34px; color:var(--text-muted); max-width:60ch; font-size:0.95rem; }
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.in-view{ opacity:1; transform:translateY(0); }
 
-  /* ---------- skills + radar ---------- */
-  .skills-layout{ display:grid; grid-template-columns: 1.4fr 1fr; gap:28px; align-items:start; }
-  @media (max-width:900px){ .skills-layout{ grid-template-columns:1fr; } }
-  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
-  .skill-cat{ background:var(--panel); padding:22px; }
-  .skill-cat h3{ font-family:'IBM Plex Mono', monospace; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--teal); font-weight:500; margin-bottom:13px; }
-  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .chip{ font-family:'IBM Plex Mono', monospace; font-size:0.76rem; padding:6px 10px; border:1px solid var(--line); border-radius:6px; color:var(--text-muted); }
+/* ---------- skills: evidence table + scan ---------- */
+.skills-layout{ display:grid; grid-template-columns:1.4fr 1fr; gap:26px; align-items:start; }
+@media (max-width:900px){ .skills-layout{ grid-template-columns:1fr; } }
+.evidence-table{
+  background:var(--cork); border:1px solid var(--line); border-radius:12px; padding:8px;
+  position:relative;
+}
+.evidence-table::before{
+  content:"EVIDENCE LOG"; position:absolute; top:-11px; left:20px; background:var(--ink);
+  padding:2px 10px; font-family:'IBM Plex Mono', monospace; font-size:0.65rem; letter-spacing:0.1em; color:var(--amber);
+}
+.skill-row{ display:grid; grid-template-columns:150px 1fr; gap:16px; padding:16px 18px; border-bottom:1px dashed var(--line); }
+.skill-row:last-child{ border-bottom:none; }
+.skill-row .k{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--teal); padding-top:3px; }
+.chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; padding:6px 10px; border:1px solid var(--line); border-radius:5px; color:var(--text); background:rgba(255,255,255,0.02); transition:border-color .2s ease, transform .15s ease, background .2s ease; }
+.chip:hover{ border-color:var(--amber); transform:translateY(-2px); background:rgba(240,166,58,0.07); }
 
-  .radar-card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:22px; }
-  .radar-card h3{ font-family:'IBM Plex Mono', monospace; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--amber); font-weight:500; margin-bottom:6px; }
-  .radar-caption{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--text-faint); margin-top:8px; text-align:center; }
-  .radar-poly{
-    transform-origin:110px 110px;
-    transform:scale(0.3);
-    opacity:0;
-    transition: transform 0.9s cubic-bezier(.22,1.4,.36,1), opacity 0.7s ease;
-  }
-  .radar-card.in-view .radar-poly{ transform:scale(1); opacity:1; }
-  .radar-axis-label{ font-family:'IBM Plex Mono', monospace; font-size:8.5px; fill:var(--text-faint); }
+.scan-card{
+  background:var(--paper); color:#1b160f; border-radius:8px; padding:20px 20px 14px;
+  position:relative; transform:rotate(1.6deg);
+  box-shadow:0 20px 45px -20px rgba(0,0,0,0.55);
+}
+.scan-card::before{
+  content:""; position:absolute; top:-10px; left:50%; transform:translateX(-50%) rotate(-3deg);
+  width:52px; height:18px; background:rgba(255,255,255,0.35); border:1px solid rgba(0,0,0,0.08);
+}
+.scan-card h3{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.07em; color:#7a5a1f; margin-bottom:2px; }
+.scan-caption{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; color:#7d735a; margin-top:6px; text-align:center; }
+.radar-poly{ transform-origin:110px 105px; transform:scale(0.25); opacity:0; transition:transform .9s cubic-bezier(.22,1.4,.36,1), opacity .7s ease; }
+.scan-card.in-view .radar-poly{ transform:scale(1); opacity:1; }
+.radar-axis-label{ font-family:'IBM Plex Mono', monospace; font-size:8.5px; fill:#5b5240; }
 
-  /* projects */
-  .project{ display:grid; grid-template-columns:216px 1fr; gap:32px; padding:32px 0; border-top:1px solid var(--line); }
-  .project:first-of-type{ border-top:none; padding-top:0; }
-  @media (max-width:760px){ .project{ grid-template-columns:1fr; gap:14px; } }
-  .project-id{ font-family:'IBM Plex Mono', monospace; font-size:0.73rem; color:var(--text-faint); letter-spacing:0.05em; }
-  .project-status{ display:inline-block; margin-top:10px; font-family:'IBM Plex Mono', monospace; font-size:0.66rem; letter-spacing:0.07em; text-transform:uppercase; padding:4px 8px; border:1px solid var(--amber-dim); color:var(--amber); border-radius:6px; }
-  .project-date{ display:block; margin-top:8px; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--text-faint); }
-  .project h3{ font-size:1.36rem; margin-bottom:8px; color:var(--text); }
-  .project p.desc{ color:var(--text-muted); max-width:64ch; }
-  .project ul{ margin:14px 0 0; padding-left:18px; color:var(--text-muted); }
-  .project ul li{ margin-bottom:6px; }
-  .project-meta{ margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-  .project-links{ margin-left:auto; display:flex; gap:14px; }
-  .project-links a{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-decoration:none; color:var(--teal); border-bottom:1px solid transparent; }
-  .project-links a:hover{ border-color:var(--teal); }
+/* ---------- projects: corkboard ---------- */
+.board{ position:relative; }
+.card-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:30px 26px; }
+@media (max-width:820px){ .card-grid{ grid-template-columns:1fr; } }
 
-  /* experience */
-  .exp-card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:28px 30px; }
-  .exp-head{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; align-items:baseline; }
-  .exp-head h3{ font-size:1.15rem; color:var(--text); }
-  .exp-org{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--teal); margin-top:4px; }
-  .exp-date{ font-family:'IBM Plex Mono', monospace; font-size:0.74rem; color:var(--text-faint); white-space:nowrap; }
-  .exp-card ul{ margin:16px 0 0; padding-left:18px; color:var(--text-muted); }
-  .exp-card ul li{ margin-bottom:7px; }
-  .exp-stack{ margin-top:16px; }
+.case-card{
+  position:relative; background:var(--paper); color:#1c160e; border-radius:3px;
+  padding:26px 24px 22px; box-shadow:0 22px 45px -22px rgba(0,0,0,0.6);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.case-card:nth-child(4n+1){ transform:rotate(-1.1deg); }
+.case-card:nth-child(4n+2){ transform:rotate(0.9deg); }
+.case-card:nth-child(4n+3){ transform:rotate(1.3deg); }
+.case-card:nth-child(4n+4){ transform:rotate(-0.7deg); }
+.case-card:hover{ transform:translateY(-6px) rotate(0deg) scale(1.015); box-shadow:0 34px 60px -20px rgba(0,0,0,0.65); z-index:5; }
 
-  /* leadership */
-  .lead-grid{ display:grid; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
-  .lead-item{ background:var(--panel); padding:22px 26px; display:grid; grid-template-columns:240px 1fr; gap:20px; }
-  @media (max-width:700px){ .lead-item{ grid-template-columns:1fr; gap:6px; } }
-  .lead-item h3{ font-size:1.03rem; color:var(--text); }
-  .lead-item .role-org{ font-family:'IBM Plex Mono', monospace; font-size:0.71rem; color:var(--text-faint); margin-top:4px; letter-spacing:0.03em; }
-  .lead-item p{ color:var(--text-muted); margin:0; }
+.pin{
+  position:absolute; top:-11px; left:26px; width:16px; height:16px; border-radius:50%;
+  background:radial-gradient(circle at 32% 30%, #ff8a7a, var(--string) 70%);
+  box-shadow:0 3px 5px rgba(0,0,0,0.5);
+}
+.paperclip{ position:absolute; top:-13px; right:20px; width:22px; height:34px; opacity:0.85; }
 
-  /* education */
-  .edu-card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:28px 30px; margin-bottom:16px; }
-  .edu-card h3{ font-size:1.15rem; color:var(--text); }
-  .edu-meta{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--text-faint); margin-top:6px; }
-  .edu-stat{ margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--teal); }
+.case-id{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; color:#8a6a2a; }
+.case-status{
+  display:inline-block; margin:8px 0 0; font-family:'IBM Plex Mono', monospace; font-size:0.62rem;
+  letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px; border:1px solid #b98a2f; color:#8a5f11; border-radius:3px;
+}
+.case-date{ float:right; font-family:'IBM Plex Mono', monospace; font-size:0.65rem; color:#8a8064; }
+.case-card h3{ font-size:1.22rem; margin:14px 0 8px; color:#181209; clear:both; }
+.case-card p.desc{ color:#3c3423; font-size:0.92rem; }
+.case-card ul{ margin:12px 0 0; padding-left:18px; color:#3c3423; font-size:0.87rem; }
+.case-card ul li{ margin-bottom:5px; }
+.case-meta{ margin-top:16px; display:flex; flex-wrap:wrap; gap:7px; align-items:center; }
+.chip-dark{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; padding:4px 8px; border:1px solid #c9bd98; border-radius:4px; color:#5a4f30; }
+.case-links{ margin-left:auto; display:flex; gap:12px; }
+.case-links a{ font-family:'IBM Plex Mono', monospace; font-size:0.74rem; text-decoration:none; color:#8a2f28; border-bottom:1px solid transparent; }
+.case-links a:hover{ border-color:#8a2f28; }
 
-  /* certifications */
-  .cert-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:12px; }
-  .cert{ border:1px solid var(--line); border-radius:8px; padding:16px 18px; font-size:0.9rem; color:var(--text-muted); display:flex; gap:12px; align-items:flex-start; background:var(--panel); }
-  .cert .cert-year{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--amber); white-space:nowrap; }
+.toggle-btn{
+  margin-top:14px; background:none; border:none; padding:0; cursor:pointer;
+  font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:#8a2f28; letter-spacing:0.04em;
+  display:flex; align-items:center; gap:6px;
+}
+.toggle-btn svg{ transition:transform .25s ease; }
+.case-card.expanded .toggle-btn svg{ transform:rotate(180deg); }
+.case-extra{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+.case-card.expanded .case-extra{ max-height:400px; }
 
-  /* contact / footer */
-  footer{ padding:80px 0 60px; border-top:1px solid var(--line); position:relative; overflow:hidden; }
-  footer::before{
-    content:"";
-    position:absolute; inset:0;
-    background-image: radial-gradient(circle at 10% 100%, rgba(47,217,196,0.10), transparent 55%);
-    pointer-events:none;
-  }
-  .contact-inner{ position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:26px; }
-  footer h2{ font-size:clamp(1.8rem,4vw,2.6rem); max-width:17ch; }
-  .contact-links{ display:flex; flex-wrap:wrap; gap:16px; }
-  .contact-links a{ text-decoration:none; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; padding:12px 18px; border:1px solid var(--line); border-radius:8px; color:var(--text); transition:border-color 0.2s ease, color 0.2s ease, transform 0.15s ease; }
-  .contact-links a:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
-  .footnote{ margin-top:40px; font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--text-faint); max-width:70ch; }
+/* ---------- experience: field report ---------- */
+.report-card{
+  background:var(--cork); border:1px solid var(--line); border-radius:10px; padding:30px 32px; position:relative;
+}
+.report-card::before{
+  content:""; position:absolute; top:22px; right:26px; width:26px; height:60px;
+  border:2px solid var(--faint); border-bottom:none; border-radius:10px 10px 0 0; opacity:0.5;
+}
+.report-head{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; align-items:baseline; }
+.report-head h3{ font-size:1.16rem; color:var(--text); }
+.report-org{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--teal); margin-top:4px; }
+.report-date{ font-family:'IBM Plex Mono', monospace; font-size:0.73rem; color:var(--faint); white-space:nowrap; }
+.report-card ul{ margin:18px 0 0; padding-left:18px; color:var(--muted); }
+.report-card ul li{ margin-bottom:8px; }
+
+/* ---------- leadership: witness statements ---------- */
+.witness-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+@media (max-width:820px){ .witness-grid{ grid-template-columns:1fr; } }
+.witness-card{
+  background:var(--paper); color:#1c160e; border-radius:3px; padding:22px 22px 18px; position:relative;
+  box-shadow:0 18px 34px -18px rgba(0,0,0,0.55);
+}
+.witness-card:nth-child(odd){ transform:rotate(-0.8deg); }
+.witness-card:nth-child(even){ transform:rotate(0.8deg); }
+.witness-card:hover{ transform:translateY(-4px) rotate(0deg); }
+.witness-card .tape{ position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(-2deg); width:50px; height:16px; background:rgba(255,255,255,0.4); border:1px solid rgba(0,0,0,0.06); }
+.witness-card h3{ font-size:1.02rem; color:#181209; margin-top:8px; }
+.witness-org{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:#8a6a2a; margin-top:4px; }
+.witness-card p{ margin:12px 0 0; color:#3c3423; font-size:0.88rem; font-family:'Caveat', cursive; font-size:1.18rem; line-height:1.4; }
+
+/* ---------- education: case history timeline ---------- */
+.timeline{ position:relative; padding-left:34px; }
+.timeline::before{ content:""; position:absolute; left:8px; top:6px; bottom:6px; width:2px; background:repeating-linear-gradient(var(--string), var(--string) 6px, transparent 6px, transparent 12px); }
+.tl-item{ position:relative; margin-bottom:30px; }
+.tl-item::before{ content:""; position:absolute; left:-30px; top:4px; width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 32% 30%, #ff8a7a, var(--string) 70%); box-shadow:0 2px 4px rgba(0,0,0,0.5); }
+.tl-item h3{ font-size:1.08rem; color:var(--text); }
+.tl-meta{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--faint); margin-top:6px; }
+.tl-stat{ margin-top:10px; font-family:'IBM Plex Mono', monospace; font-size:0.84rem; color:var(--teal); }
+
+/* ---------- certifications: case closed stamps ---------- */
+.cert-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:14px; }
+.cert{
+  border:1px solid var(--line); border-radius:8px; padding:16px 16px; font-size:0.87rem; color:var(--muted);
+  display:flex; gap:12px; align-items:flex-start; background:var(--cork); position:relative; overflow:hidden;
+}
+.cert::after{
+  content:"CLOSED"; position:absolute; right:-24px; top:10px; transform:rotate(28deg);
+  font-family:'IBM Plex Mono', monospace; font-size:0.62rem; letter-spacing:0.1em; color:var(--string);
+  border:1.5px solid var(--string); padding:1px 22px; opacity:0.55;
+}
+.cert .cert-year{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--amber); white-space:nowrap; }
+
+/* ---------- contact: tip line ---------- */
+footer{ padding:84px 0 60px; border-top:1px solid var(--line); position:relative; overflow:hidden; }
+footer::before{ content:""; position:absolute; inset:0; background-image:radial-gradient(circle at 12% 100%, rgba(34,211,184,0.10), transparent 55%); pointer-events:none; }
+.contact-inner{ position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:26px; }
+footer h2{ font-size:clamp(1.8rem,4vw,2.6rem); max-width:19ch; }
+.contact-links{ display:flex; flex-wrap:wrap; gap:16px; }
+.contact-links a{ text-decoration:none; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; padding:12px 18px; border:1px solid var(--line); border-radius:6px; color:var(--text); transition:border-color .2s ease, color .2s ease, transform .15s ease; }
+.contact-links a:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
+.footnote{ margin-top:36px; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--faint); max-width:70ch; }
 
 </style>
 </head>
 <body>
 
-<div class="layout">
+<div id="cursor"></div>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="avatar-block">
-      <div class="avatar-glow"></div>
-      <div class="avatar">
-        <span class="avatar-initials">RR</span>
-        <img src="profilePic.jpeg" alt="Radha Rani" onerror="this.style.display='none'">
-      </div>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brandmark" href="#top"><span class="dot"></span>CASE FILE <b>№ 2027-RR</b></a>
+    <div class="tabs">
+      <a href="#about">Subject</a>
+      <a href="#skills">Evidence</a>
+      <a href="#projects">Case Files</a>
+      <a href="#experience">Field Reports</a>
+      <a href="#leadership">Statements</a>
+      <a href="#education">History</a>
+      <a href="#contact">Tip Line</a>
     </div>
-    <h1 class="sidebar-name">Radha Rani</h1>
-    <p class="sidebar-role">Full-Stack &amp; AI Engineer</p>
-    <p class="sidebar-bio">B.Tech CSE at VIT Bhopal, building RAG platforms, health tools, and design systems — one hackathon at a time.</p>
-    <span class="status-pill"><span class="status-dot"></span> Currently shipping BRAID</span>
-
-    <div class="info-list">
-      <div class="info-row">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2FD9C4" stroke-width="2"><path d="M3 6.5 12 13l9-6.5"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
-        <span><span class="info-label">Email</span><a href="mailto:hare81675@gmail.com">hare81675@gmail.com</a></span>
-      </div>
-      <div class="info-row">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2FD9C4" stroke-width="2"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        <span><span class="info-label">Location</span><span>Bhopal, Madhya Pradesh</span></span>
-      </div>
-      <div class="info-row">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2FD9C4" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 9h18"/></svg>
-        <span><span class="info-label">Studying</span><span>B.Tech CSE, VIT Bhopal · 2027</span></span>
-      </div>
-    </div>
-
-    <div class="sidebar-socials">
-      <a class="social-btn" href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub</a>
-      <a class="social-btn" href="https://www.linkedin.com/in/radha-rani-04351329a" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="social-btn" href="https://leetcode.com/u/mgvINhKigC/" target="_blank" rel="noopener">LeetCode</a>
-    </div>
-  </aside>
-
-  <!-- CONTENT -->
-  <div class="content">
-
-    <nav class="content-nav">
-      <div class="content-nav-inner">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#leadership">Leadership</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-
-    <main>
-
-      <!-- HERO / ABOUT -->
-      <section id="about" style="border-top:none;">
-        <div class="wrap hero">
-          <div class="hero-inner">
-            <p class="eyebrow">B.Tech Computer Science &middot; VIT Bhopal</p>
-            <h1>I build things that work <span class="grad-text">outside the demo.</span></h1>
-            <p class="lede">Full-stack and AI engineer turning industrial manuals into cited answers, rural pregnancies into early warnings, and manipulated media into a confidence score anyone can read at a glance.</p>
-            <div class="hero-cta">
-              <a class="btn btn-primary" href="#projects">View projects</a>
-              <a class="btn btn-ghost" href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub ↗</a>
-            </div>
-          </div>
-
-          <div class="terminal-wrap">
-            <div class="terminal">
-              <div class="terminal-head">
-                <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
-                <span class="terminal-title">radha@dev — zsh</span>
-              </div>
-              <div class="terminal-body" id="terminalBody" aria-label="Terminal introduction, also described in the paragraph above"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SKILLS -->
-      <section id="skills">
-        <div class="wrap">
-          <div class="section-head">
-            <span class="section-tag">01 / Stack</span>
-            <h2>What I build with</h2>
-            <div class="section-rule"></div>
-          </div>
-          <div class="skills-layout">
-            <div class="skills-grid">
-              <div class="skill-cat">
-                <h3>Languages</h3>
-                <div class="chip-row"><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">C++</span><span class="chip">Java</span><span class="chip">SQL</span></div>
-              </div>
-              <div class="skill-cat">
-                <h3>Frontend</h3>
-                <div class="chip-row"><span class="chip">React.js</span><span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">Bootstrap</span></div>
-              </div>
-              <div class="skill-cat">
-                <h3>AI &amp; RAG</h3>
-                <div class="chip-row"><span class="chip">LangChain</span><span class="chip">Google Gemini</span><span class="chip">RAG</span><span class="chip">Vector Embeddings</span><span class="chip">TensorFlow Lite</span><span class="chip">XGBoost</span></div>
-              </div>
-              <div class="skill-cat">
-                <h3>Backend &amp; Data</h3>
-                <div class="chip-row"><span class="chip">Flask</span><span class="chip">MySQL</span><span class="chip">Supabase</span><span class="chip">pgvector</span><span class="chip">ChromaDB</span><span class="chip">Pandas</span></div>
-              </div>
-              <div class="skill-cat">
-                <h3>Cloud &amp; Tools</h3>
-                <div class="chip-row"><span class="chip">AWS EC2/S3/Lambda</span><span class="chip">Render</span><span class="chip">Git/GitHub</span><span class="chip">Streamlit</span><span class="chip">Folium</span></div>
-              </div>
-            </div>
-
-            <div class="radar-card" id="radarCard">
-              <h3>Self-rated depth</h3>
-              <svg viewBox="0 0 220 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
-                <g id="radarGrid" stroke="#2A2636" fill="none"></g>
-                <polygon id="radarPoly" class="radar-poly" points="" fill="rgba(139,124,250,0.22)" stroke="#8B7CFA" stroke-width="2"/>
-                <g id="radarPoints"></g>
-                <g id="radarLabels"></g>
-              </svg>
-              <p class="radar-caption">// gut-check, not a benchmark</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROJECTS -->
-      <section id="projects">
-        <div class="wrap">
-          <div class="section-head">
-            <span class="section-tag">02 / Case Files</span>
-            <h2>Selected builds</h2>
-            <div class="section-rule"></div>
-          </div>
-
-          <div class="project">
-            <div>
-              <div class="project-id">FILE — BRAID-01</div>
-              <div class="project-status">Hackathon · UI Lead</div>
-              <span class="project-date">ET AI Hackathon · Jul 2026</span>
-            </div>
-            <div>
-              <h3>BRAID — Industrial Knowledge Intelligence Platform</h3>
-              <p class="desc">A 6-page RAG platform, built with a 3-person team, that turns industrial manuals, SOPs, and inspection reports into a cited, AI-searchable knowledge base.</p>
-              <ul>
-                <li>Built the full frontend — landing page, dashboard, equipment explorer, AI copilot chat, document upload, and voice/text knowledge capture — wired to live Supabase-backed REST endpoints.</li>
-                <li>Designed a document detail view with an "institutional memory" panel that surfaces related documents via vector similarity search.</li>
-                <li>Built a dynamic equipment/entity explorer with debounced search and type-filtering, plus a chat interface rendering Gemini answers with clickable, source-linked citations.</li>
-              </ul>
-              <div class="project-meta">
-                <span class="chip">Next.js 16</span><span class="chip">TypeScript</span><span class="chip">Supabase + pgvector</span><span class="chip">Gemini</span>
-                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="project">
-            <div>
-              <div class="project-id">FILE — INTELLIDOCS-02</div>
-              <div class="project-status">Personal Project</div>
-              <span class="project-date">Jul 2026</span>
-            </div>
-            <div>
-              <h3>IntelliDocs AI — Enterprise RAG Knowledge Platform</h3>
-              <p class="desc">An enterprise-grade RAG platform where users upload PDFs, build a semantic knowledge base, and get grounded answers through an interactive chat interface.</p>
-              <ul>
-                <li>End-to-end AI pipeline — document parsing, intelligent chunking, vector embeddings, semantic retrieval, context-aware generation — with LangChain, Gemini, and ChromaDB.</li>
-                <li>Dashboard with document management, automatic knowledge-base rebuilding, and source-chunk visualization for a fully traceable answer trail.</li>
-              </ul>
-              <div class="project-meta">
-                <span class="chip">Streamlit</span><span class="chip">LangChain</span><span class="chip">Gemini</span><span class="chip">ChromaDB</span>
-                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a><a href="#" target="_blank" rel="noopener">Live ↗</a></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="project">
-            <div>
-              <div class="project-id">FILE — SHERLOCK-03</div>
-              <div class="project-status">Solo Build</div>
-              <span class="project-date">AI Engineering Challenge · Jul 2026</span>
-            </div>
-            <div>
-              <h3>Sherlock AI — Candidate Identifier</h3>
-              <p class="desc">An explainable candidate-verification system, built solo, that fuses six evidence sources into one live confidence score instead of a black-box verdict.</p>
-              <ul>
-                <li>Combines transcript analysis, camera activity, speaking behavior, and simulated face/voice recognition into a modular multi-engine architecture.</li>
-                <li>Interactive Streamlit dashboard for real-time ranking, evidence visualization, and auto-generated PDF investigation reports.</li>
-              </ul>
-              <div class="project-meta">
-                <span class="chip">Python</span><span class="chip">Streamlit</span><span class="chip">Matplotlib</span><span class="chip">ReportLab</span><span class="chip">RapidFuzz</span>
-                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="project">
-            <div>
-              <div class="project-id">FILE — MATRICARE-04</div>
-              <div class="project-status">Hackathon Finalist</div>
-              <span class="project-date">GenAI Hackathon, Mumbai · Top 75</span>
-            </div>
-            <div>
-              <h3>Matricare — AI-Powered Maternal Health Assistant</h3>
-              <p class="desc">A mobile-first assistant designed for rural India, built to flag high-risk pregnancies and generate personalized nutrition plans even where connectivity is unreliable.</p>
-              <ul>
-                <li>Combines TensorFlow Lite, XGBoost, Mistral, Whisper, and M2M-100 for on-device risk scoring, voice input, and regional-language translation.</li>
-                <li>Consent-based local data storage and a touch-first UI designed for low digital literacy.</li>
-              </ul>
-              <div class="project-meta">
-                <span class="chip">React + Tailwind</span><span class="chip">TensorFlow Lite</span><span class="chip">XGBoost</span><span class="chip">Whisper</span>
-                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="project">
-            <div>
-              <div class="project-id">FILE — NEERTRACE-05</div>
-              <div class="project-status">Data Tool</div>
-              <span class="project-date">2025</span>
-            </div>
-            <div>
-              <h3>NeerTrace — Heavy Metal Pollution Indices Calculator</h3>
-              <p class="desc">A real-time water quality monitoring tool that computes heavy-metal pollution indices for researchers and policymakers tracking contamination hotspots.</p>
-              <ul>
-                <li>Supports CSV batch upload and manual entry, with interactive Folium maps and downloadable reports.</li>
-              </ul>
-              <div class="project-meta">
-                <span class="chip">Streamlit</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Folium</span>
-                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a><a href="#" target="_blank" rel="noopener">Demo ↗</a></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="project">
-            <div>
-              <div class="project-id">FILE — DEEPFAKE-06</div>
-              <div class="project-status">Web App</div>
-              <span class="project-date">Feb 2025</span>
-            </div>
-            <div>
-              <h3>Deepfake Detection Result Interface</h3>
-              <p class="desc">A full-stack app for spotting manipulated images and video, built around a drag-and-drop upload flow and a results page designed to be read at a glance.</p>
-              <ul>
-                <li>Flask + SQLite backend serving detection results to a responsive JS frontend, rendered as a visual speedometer for an instantly readable verdict.</li>
-              </ul>
-              <div class="project-meta">
-                <span class="chip">Flask</span><span class="chip">SQLAlchemy</span><span class="chip">SQLite</span><span class="chip">SVG</span>
-                <span class="project-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- EXPERIENCE -->
-      <section id="experience">
-        <div class="wrap">
-          <div class="section-head">
-            <span class="section-tag">03 / On the Job</span>
-            <h2>Experience</h2>
-            <div class="section-rule"></div>
-          </div>
-          <div class="exp-card">
-            <div class="exp-head">
-              <div>
-                <h3>Software Development Intern — Project Trainee</h3>
-                <div class="exp-org">Bihar State Power Transmission Company Limited (BSPTCL), Bihar · Onsite</div>
-              </div>
-              <span class="exp-date">May 2026 – Jun 2026</span>
-            </div>
-            <ul>
-              <li>Built a full-stack Employee Management System with secure role-based Admin and Employee portals covering employee &amp; department management, task assignment and tracking, leave management, and profile management with photo upload.</li>
-              <li>Designed and integrated a MySQL database with efficient CRUD operations, authentication, session management, task-status tracking, and search/filtering, backed by a responsive Bootstrap 5 UI.</li>
-              <li>Owned the complete development lifecycle — database design, implementation, testing, documentation, and GitHub deployment.</li>
-            </ul>
-            <div class="exp-stack chip-row">
-              <span class="chip">Python (Flask)</span><span class="chip">MySQL</span><span class="chip">Bootstrap 5</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- LEADERSHIP -->
-      <section id="leadership">
-        <div class="wrap">
-          <div class="section-head">
-            <span class="section-tag">04 / Beyond Code</span>
-            <h2>Design leadership</h2>
-            <div class="section-rule"></div>
-          </div>
-          <div class="lead-grid">
-            <div class="lead-item">
-              <div><h3>Co-Lead, Design Team</h3><div class="role-org">Fintech Club, VIT Bhopal · 2024 – 2026</div></div>
-              <p>Led creative direction and branding for technical events, and managed end-to-end recruitment — screening, interviews, evaluation, and selection of core team members.</p>
-            </div>
-            <div class="lead-item">
-              <div><h3>Co-Lead, Design Team</h3><div class="role-org">Edu4u Club, VIT Bhopal</div></div>
-              <p>Managed and mentored a team of designers, oversaw event branding and promotional materials, and kept visual identity consistent across club activities.</p>
-            </div>
-            <div class="lead-item">
-              <div><h3>Core Member, Design Team</h3><div class="role-org">Insight Club, VIT Bhopal · 2024 – 2025</div></div>
-              <p>Designed posters, banners, and presentation graphics to promote technical events, competitions, and community initiatives.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- EDUCATION -->
-      <section id="education">
-        <div class="wrap">
-          <div class="section-head">
-            <span class="section-tag">05 / Education</span>
-            <h2>Background</h2>
-            <div class="section-rule"></div>
-          </div>
-          <div class="edu-card">
-            <h3>Bachelor of Technology — Computer Science Engineering</h3>
-            <div class="edu-meta"><span>VIT Bhopal University, Bhopal, MP</span><span>Aug 2023 – Aug 2027</span></div>
-            <div class="edu-stat">CGPA — 8.37</div>
-          </div>
-          <div class="edu-card">
-            <h3>Higher Secondary Education — CBSE (Intermediate Science)</h3>
-            <div class="edu-meta"><span>DAV Public School, Arrah, Bihar</span><span>May 2014 – May 2022</span></div>
-            <div class="edu-stat">Class X — 92% &nbsp;·&nbsp; Class XII — 85%</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CERTIFICATIONS -->
-      <section id="certifications">
-        <div class="wrap">
-          <div class="section-head">
-            <span class="section-tag">06 / Certifications</span>
-            <h2>Coursework &amp; credentials</h2>
-            <div class="section-rule"></div>
-          </div>
-          <div class="cert-grid">
-            <div class="cert"><span class="cert-year">2025</span><span>GenAI Hackathon Mumbai — Grand Finale, Top 75</span></div>
-            <div class="cert"><span class="cert-year">2026</span><span>ServiceNow Virtual Internship — ServiceNow University &amp; SmartBridge</span></div>
-            <div class="cert"><span class="cert-year">2026</span><span>NPTEL Elite Certificate — Marketing Analytics (98%, Top 5%)</span></div>
-            <div class="cert"><span class="cert-year">2025</span><span>NPTEL Elite Certificate — Introduction to Machine Learning (75%, Top 5%)</span></div>
-            <div class="cert"><span class="cert-year">2025</span><span>AWS Certificate — Technical Essentials</span></div>
-            <div class="cert"><span class="cert-year">2026</span><span>Google IT Support Certificate — 6 courses</span></div>
-            <div class="cert"><span class="cert-year">—</span><span>TCS CodeVita Season 13 — Global Rank 7786</span></div>
-            <div class="cert"><span class="cert-year">—</span><span>Coursera — The Bits and Bytes of Computer Networking</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <footer id="contact">
-        <div class="wrap contact-inner">
-          <h2>Let's build something <span class="grad-text">worth reading.</span></h2>
-          <div class="contact-links">
-            <a href="mailto:hare81675@gmail.com">hare81675@gmail.com ↗</a>
-            <a href="tel:+917488831442">+91 74888 31442 ↗</a>
-            <a href="https://www.linkedin.com/in/radha-rani-04351329a" target="_blank" rel="noopener">LinkedIn ↗</a>
-            <a href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub ↗</a>
-            <a href="https://leetcode.com/u/mgvINhKigC/" target="_blank" rel="noopener">LeetCode ↗</a>
-          </div>
-          <p class="footnote">Radha Rani — B.Tech CSE, VIT Bhopal. Built with plain HTML/CSS/JS and hosted on GitHub Pages. Email link opens your device's default mail app — if nothing happens on click, your browser/OS may not have one set as default; the address above can always be copied manually.</p>
-        </div>
-      </footer>
-
-    </main>
   </div>
-</div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section id="about" class="hero" style="border-top:none;">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="case-tag"><span class="pulse"></span>Status: Active · Currently shipping IntelliDocs AI</span>
+        <div class="stamp-wrap">
+          <h1>Radha Rani —<br><span class="grad-text">Full-Stack &amp; AI Engineer</span></h1>
+        </div>
+        <div class="redact">
+          <span class="redact-line" style="--d:0.9">B.Tech CSE at VIT Bhopal, four years into building things that hold up past the demo table.</span>
+          <span class="redact-line" style="--d:1.05">I fuse retrieval, design, and evidence into products people can actually trust —</span>
+          <span class="redact-line" style="--d:1.2">from cited answers on industrial manuals to a confidence score for a candidate's identity.</span>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">Open case files</a>
+          <a class="btn btn-ghost" href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+
+      <div class="log-card">
+        <div class="log-head">
+          <span class="log-dot r"></span><span class="log-dot y"></span><span class="log-dot g"></span>
+          <span class="log-title">field-log.txt — radha@dev</span>
+        </div>
+        <div class="log-body" id="logBody" aria-label="Field log, also described in the paragraph above"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-tag">Exhibit A</span><h2>Evidence on file</h2></div>
+      <p class="section-sub reveal">The tools I reach for when a build actually has to ship — not just demo well.</p>
+
+      <div class="skills-layout">
+        <div class="evidence-table reveal">
+          <div class="skill-row">
+            <div class="k">Languages</div>
+            <div class="chip-row"><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">C++</span><span class="chip">Java</span><span class="chip">SQL</span></div>
+          </div>
+          <div class="skill-row">
+            <div class="k">Frontend</div>
+            <div class="chip-row"><span class="chip">React.js</span><span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">Bootstrap</span></div>
+          </div>
+          <div class="skill-row">
+            <div class="k">AI &amp; RAG</div>
+            <div class="chip-row"><span class="chip">LangChain</span><span class="chip">Google Gemini</span><span class="chip">RAG</span><span class="chip">Vector Embeddings</span><span class="chip">TensorFlow Lite</span><span class="chip">XGBoost</span></div>
+          </div>
+          <div class="skill-row">
+            <div class="k">Backend &amp; Data</div>
+            <div class="chip-row"><span class="chip">Flask</span><span class="chip">MySQL</span><span class="chip">Supabase</span><span class="chip">pgvector</span><span class="chip">ChromaDB</span><span class="chip">Pandas</span></div>
+          </div>
+          <div class="skill-row">
+            <div class="k">Cloud &amp; Tools</div>
+            <div class="chip-row"><span class="chip">AWS EC2/S3/Lambda</span><span class="chip">Render</span><span class="chip">Git/GitHub</span><span class="chip">Streamlit</span><span class="chip">Folium</span></div>
+          </div>
+        </div>
+
+        <div class="scan-card reveal" id="scanCard">
+          <h3>Subject profile scan</h3>
+          <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+            <g id="radarGrid" stroke="#00000022" fill="none"></g>
+            <polygon id="radarPoly" class="radar-poly" points="" fill="rgba(140,63,40,0.18)" stroke="#8a2f28" stroke-width="2"/>
+            <g id="radarPoints"></g>
+            <g id="radarLabels"></g>
+          </svg>
+          <p class="scan-caption">// self-assessed, cross-examine on request</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="board">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-tag">Exhibit B</span><h2>Open case files</h2></div>
+      <p class="section-sub reveal">Six builds, pinned in the order they happened. Tap a file to pull the full report.</p>
+
+      <div class="card-grid">
+
+        <article class="case-card reveal">
+          <span class="pin"></span>
+          <div class="case-date">Jul 2026</div>
+          <div class="case-id">FILE № BRAID-01 · UI Lead, 3-person team</div>
+          <span class="case-status">Hackathon</span>
+          <h3>BRAID — Industrial Knowledge Intelligence Platform</h3>
+          <p class="desc">A 6-page RAG platform that turns industrial manuals, SOPs, and inspection reports into a cited, AI-searchable knowledge base.</p>
+          <button class="toggle-btn" aria-expanded="false">Pull full report <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+          <div class="case-extra">
+            <ul>
+              <li>Built the full frontend — landing page, dashboard shell, equipment explorer, AI copilot chat, document upload, voice/text capture — wired to live Supabase-backed REST endpoints.</li>
+              <li>Designed a document detail view with an "institutional memory" panel surfacing related documents via vector similarity search.</li>
+              <li>Built a dynamic equipment/entity explorer with debounced search and type-filtering, plus a chat interface rendering Gemini answers with clickable, source-linked citations.</li>
+            </ul>
+          </div>
+          <div class="case-meta">
+            <span class="chip-dark">Next.js 16</span><span class="chip-dark">TypeScript</span><span class="chip-dark">Supabase + pgvector</span><span class="chip-dark">Gemini</span>
+            <span class="case-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
+          </div>
+        </article>
+
+        <article class="case-card reveal">
+          <span class="pin"></span>
+          <div class="case-date">Jul 2026</div>
+          <div class="case-id">FILE № INTELLIDOCS-02 · Personal build</div>
+          <span class="case-status">In progress</span>
+          <h3>IntelliDocs AI — Enterprise RAG Platform</h3>
+          <p class="desc">Upload PDFs, build a semantic knowledge base, get grounded answers through an interactive chat interface.</p>
+          <button class="toggle-btn" aria-expanded="false">Pull full report <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+          <div class="case-extra">
+            <ul>
+              <li>End-to-end AI pipeline — document parsing, intelligent chunking, vector embeddings, semantic retrieval, context-aware generation — using LangChain, Gemini, and ChromaDB.</li>
+              <li>Dashboard with document management, automatic knowledge-base rebuilding, and source-chunk visualization for a fully traceable answer trail.</li>
+              <li>Deployed on Render, working through Python-version and build-dependency issues to get a clean production deploy.</li>
+            </ul>
+          </div>
+          <div class="case-meta">
+            <span class="chip-dark">Streamlit</span><span class="chip-dark">LangChain</span><span class="chip-dark">Gemini</span><span class="chip-dark">ChromaDB</span>
+            <span class="case-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a><a href="#" target="_blank" rel="noopener">Live ↗</a></span>
+          </div>
+        </article>
+
+        <article class="case-card reveal">
+          <span class="pin"></span>
+          <div class="case-date">Jul 2026</div>
+          <div class="case-id">FILE № SHERLOCK-03 · Solo build</div>
+          <span class="case-status">Submitted</span>
+          <h3>Sherlock AI — Candidate Identifier</h3>
+          <p class="desc">An explainable candidate-verification system that fuses six evidence sources into one live confidence score.</p>
+          <button class="toggle-btn" aria-expanded="false">Pull full report <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+          <div class="case-extra">
+            <ul>
+              <li>Combines transcript analysis, camera activity, speaking behavior, and simulated face/voice recognition into a modular multi-engine architecture.</li>
+              <li>Interactive Streamlit dashboard for real-time ranking, evidence visualization, and auto-generated PDF investigation reports.</li>
+            </ul>
+          </div>
+          <div class="case-meta">
+            <span class="chip-dark">Python</span><span class="chip-dark">Streamlit</span><span class="chip-dark">Matplotlib</span><span class="chip-dark">ReportLab</span>
+            <span class="case-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
+          </div>
+        </article>
+
+        <article class="case-card reveal">
+          <span class="pin"></span>
+          <div class="case-date">2025</div>
+          <div class="case-id">FILE № MATRICARE-04 · Team build</div>
+          <span class="case-status">Top 75 Finalist</span>
+          <h3>Matricare — Maternal Health Assistant</h3>
+          <p class="desc">A mobile-first assistant for rural India, flagging high-risk pregnancies and generating nutrition plans offline.</p>
+          <button class="toggle-btn" aria-expanded="false">Pull full report <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+          <div class="case-extra">
+            <ul>
+              <li>Combines TensorFlow Lite, XGBoost, Mistral, Whisper, and M2M-100 for on-device risk scoring, voice input, and regional-language translation.</li>
+              <li>Consent-based local data storage and a touch-first UI designed for low digital literacy.</li>
+            </ul>
+          </div>
+          <div class="case-meta">
+            <span class="chip-dark">React + Tailwind</span><span class="chip-dark">TensorFlow Lite</span><span class="chip-dark">XGBoost</span><span class="chip-dark">Whisper</span>
+            <span class="case-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
+          </div>
+        </article>
+
+        <article class="case-card reveal">
+          <span class="pin"></span>
+          <div class="case-date">2025</div>
+          <div class="case-id">FILE № NEERTRACE-05 · Data tool</div>
+          <span class="case-status">Closed</span>
+          <h3>NeerTrace — Pollution Indices Calculator</h3>
+          <p class="desc">A real-time water quality tool computing heavy-metal pollution indices for contamination hotspots.</p>
+          <button class="toggle-btn" aria-expanded="false">Pull full report <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+          <div class="case-extra">
+            <ul>
+              <li>Supports CSV batch upload and manual entry, with interactive Folium maps and downloadable reports.</li>
+              <li>Built for researchers and policymakers tracking contamination over time.</li>
+            </ul>
+          </div>
+          <div class="case-meta">
+            <span class="chip-dark">Streamlit</span><span class="chip-dark">Pandas</span><span class="chip-dark">Folium</span>
+            <span class="case-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a><a href="#" target="_blank" rel="noopener">Demo ↗</a></span>
+          </div>
+        </article>
+
+        <article class="case-card reveal">
+          <span class="pin"></span>
+          <div class="case-date">Feb 2025</div>
+          <div class="case-id">FILE № DEEPFAKE-06 · Web app</div>
+          <span class="case-status">Closed</span>
+          <h3>Deepfake Detection Result Interface</h3>
+          <p class="desc">A drag-and-drop app for spotting manipulated images and video, read at a glance.</p>
+          <button class="toggle-btn" aria-expanded="false">Pull full report <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+          <div class="case-extra">
+            <ul>
+              <li>Flask + SQLite backend serving detection results to a responsive JS frontend.</li>
+              <li>Results rendered as a visual speedometer for an instantly readable verdict.</li>
+            </ul>
+          </div>
+          <div class="case-meta">
+            <span class="chip-dark">Flask</span><span class="chip-dark">SQLAlchemy</span><span class="chip-dark">SQLite</span>
+            <span class="case-links"><a href="https://github.com/Radha-byte" target="_blank" rel="noopener">Code ↗</a></span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="cork-bg">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-tag">Exhibit C</span><h2>Field reports</h2></div>
+      <div class="report-card reveal">
+        <div class="report-head">
+          <div>
+            <h3>Software Development Intern — Project Trainee</h3>
+            <div class="report-org">Bihar State Power Transmission Company Limited (BSPTCL), Bihar · Onsite</div>
+          </div>
+          <span class="report-date">May 2026 – Jun 2026</span>
+        </div>
+        <ul>
+          <li>Built a full-stack Employee Management System with role-based Admin and Employee portals covering department management, task assignment and tracking, leave management, and profile management with photo upload.</li>
+          <li>Designed and integrated a MySQL database with efficient CRUD operations, authentication, session management, task-status tracking, and search/filtering, backed by a responsive Bootstrap 5 UI.</li>
+          <li>Owned the complete development lifecycle — database design, implementation, testing, documentation, and GitHub deployment.</li>
+        </ul>
+        <div class="chip-row" style="margin-top:16px;">
+          <span class="chip">Python (Flask)</span><span class="chip">MySQL</span><span class="chip">Bootstrap 5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section id="leadership">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-tag">Exhibit D</span><h2>Witness statements</h2></div>
+      <p class="section-sub reveal">On the design side of things, in my own words.</p>
+      <div class="witness-grid">
+        <div class="witness-card reveal">
+          <span class="tape"></span>
+          <h3>Co-Lead, Design Team</h3>
+          <div class="witness-org">Fintech Club, VIT Bhopal · 2024–2026</div>
+          <p>"Led creative direction for every technical event, and ran recruitment start to finish — screening, interviews, selection."</p>
+        </div>
+        <div class="witness-card reveal">
+          <span class="tape"></span>
+          <h3>Co-Lead, Design Team</h3>
+          <div class="witness-org">Edu4u Club, VIT Bhopal</div>
+          <p>"Mentored a team of designers and kept our visual identity consistent across every event we touched."</p>
+        </div>
+        <div class="witness-card reveal">
+          <span class="tape"></span>
+          <h3>Core Member, Design Team</h3>
+          <div class="witness-org">Insight Club, VIT Bhopal · 2024–2025</div>
+          <p>"Designed posters and presentation graphics for the events that got people in the door."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="cork-bg">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-tag">Exhibit E</span><h2>Case history</h2></div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <h3>Bachelor of Technology — Computer Science Engineering</h3>
+          <div class="tl-meta"><span>VIT Bhopal University, Bhopal, MP</span><span>Aug 2023 – Aug 2027</span></div>
+          <div class="tl-stat">CGPA — 8.37</div>
+        </div>
+        <div class="tl-item reveal">
+          <h3>Higher Secondary Education — CBSE (Intermediate Science)</h3>
+          <div class="tl-meta"><span>DAV Public School, Arrah, Bihar</span><span>May 2014 – May 2022</span></div>
+          <div class="tl-stat">Class X — 92% &nbsp;·&nbsp; Class XII — 85%</div>
+        </div>
+      </div>
+
+      <div class="section-head reveal" style="margin-top:56px;"><span class="section-tag">Exhibit F</span><h2>Certifications on record</h2></div>
+      <div class="cert-grid reveal">
+        <div class="cert"><span class="cert-year">2025</span><span>GenAI Hackathon Mumbai — Grand Finale, Top 75</span></div>
+        <div class="cert"><span class="cert-year">2026</span><span>ServiceNow Virtual Internship — ServiceNow University &amp; SmartBridge</span></div>
+        <div class="cert"><span class="cert-year">2026</span><span>NPTEL Elite — Marketing Analytics (98%, Top 5%)</span></div>
+        <div class="cert"><span class="cert-year">2025</span><span>NPTEL Elite — Intro to Machine Learning (75%, Top 5%)</span></div>
+        <div class="cert"><span class="cert-year">2025</span><span>AWS Certificate — Technical Essentials</span></div>
+        <div class="cert"><span class="cert-year">2026</span><span>Google IT Support Certificate — 6 courses</span></div>
+        <div class="cert"><span class="cert-year">—</span><span>TCS CodeVita Season 13 — Global Rank 7786</span></div>
+        <div class="cert"><span class="cert-year">—</span><span>Coursera — Bits and Bytes of Computer Networking</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <footer id="contact">
+    <div class="wrap contact-inner">
+      <span class="section-tag">Tip line</span>
+      <h2>Got a lead worth <span class="grad-text">following up on?</span></h2>
+      <div class="contact-links">
+        <a href="mailto:hare81675@gmail.com">hare81675@gmail.com ↗</a>
+        <a href="tel:+917488831442">+91 74888 31442 ↗</a>
+        <a href="https://www.linkedin.com/in/radha-rani-04351329a" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/Radha-byte" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://leetcode.com/u/mgvINhKigC/" target="_blank" rel="noopener">LeetCode ↗</a>
+      </div>
+      <p class="footnote">Radha Rani — B.Tech CSE, VIT Bhopal. Built with plain HTML/CSS/JS, hosted on GitHub Pages. Email link opens your device's default mail app — the address above can always be copied manually.</p>
+    </div>
+  </footer>
+
+</main>
 
 <script>
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var isTouch = window.matchMedia('(pointer:coarse)').matches;
 
-  /* ---------- terminal typewriter ---------- */
-  (function(){
-    var body = document.getElementById('terminalBody');
-    var blocks = [
-      { prompt: 'whoami', out: ['Radha Rani — B.Tech CSE, VIT Bhopal · CGPA 8.37'] },
-      { prompt: 'cat philosophy.txt', out: [
-          "I don't build for the demo table. I build for",
-          "the person with a bad connection and five",
-          "minutes to spare."
-        ] },
-      { prompt: 'cat currently.txt', out: [
-          '> Shipping BRAID — a RAG platform for industrial knowledge',
-          '> Co-leading design across two campus clubs',
-          '> Always one hackathon away from a new idea'
-        ], accent:true },
-      { prompt: 'echo $STATUS', out: ['Always shipping.'] }
-    ];
+/* ---------- custom cursor ---------- */
+if(!isTouch){
+  var cursor = document.getElementById('cursor');
+  window.addEventListener('mousemove', function(e){
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .case-card, .chip').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ cursor.classList.add('big'); });
+    el.addEventListener('mouseleave', function(){ cursor.classList.remove('big'); });
+  });
+}
 
-    function renderStatic(){
-      var html = '';
-      blocks.forEach(function(b){
-        html += '<p class="term-line"><span class="term-prompt">radha@dev:~$</span> ' + b.prompt + '</p>';
-        b.out.forEach(function(line){
-          html += '<p class="term-line term-out' + (b.accent ? ' accent' : '') + '">' + line + '</p>';
-        });
+/* ---------- field log typewriter ---------- */
+(function(){
+  var body = document.getElementById('logBody');
+  var blocks = [
+    { n:'01', prompt:'whoami', out:['Radha Rani — B.Tech CSE, VIT Bhopal · CGPA 8.37'] },
+    { n:'02', prompt:'cat method.txt', out:[
+        "I don't build for the demo table. I build for",
+        'the person with a bad connection and five',
+        'minutes to spare.'
+      ] },
+    { n:'03', prompt:'cat currently.txt', out:[
+        '> Shipping IntelliDocs AI — a RAG platform for PDFs',
+        '> UI lead on BRAID for the ET AI Hackathon',
+        '> Co-leading design across two campus clubs'
+      ], accent:true },
+    { n:'04', prompt:'echo $VERDICT', out:['Case remains open. Always shipping.'] }
+  ];
+
+  function renderStatic(){
+    var html = '';
+    blocks.forEach(function(b){
+      html += '<p class="log-line"><span class="log-idx">['+b.n+']</span> <span class="log-prompt">radha@dev:~$</span> ' + b.prompt + '</p>';
+      b.out.forEach(function(line){
+        html += '<p class="log-line log-out' + (b.accent ? ' accent' : '') + '">' + line + '</p>';
       });
-      html += '<p class="term-line"><span class="term-prompt">radha@dev:~$</span> <span class="term-cursor"></span></p>';
-      body.innerHTML = html;
+    });
+    html += '<p class="log-line"><span class="log-prompt">radha@dev:~$</span> <span class="log-cursor"></span></p>';
+    body.innerHTML = html;
+  }
+
+  if(reduceMotion){ renderStatic(); return; }
+
+  var bi=0, ci=0, mode='prompt', oi=0, currentP;
+
+  function tick(){
+    if(bi >= blocks.length){
+      var cur = document.createElement('p');
+      cur.className = 'log-line';
+      cur.innerHTML = '<span class="log-prompt">radha@dev:~$</span> <span class="log-cursor"></span>';
+      body.appendChild(cur);
+      return;
     }
+    var block = blocks[bi];
 
-    if(reduceMotion){ renderStatic(); return; }
-
-    var bi = 0, ci = 0, mode = 'prompt', oi = 0, oci = 0;
-    var currentP, currentOut;
-
-    function tick(){
-      if(bi >= blocks.length){
-        var cur = document.createElement('p');
-        cur.className = 'term-line';
-        cur.innerHTML = '<span class="term-prompt">radha@dev:~$</span> <span class="term-cursor"></span>';
-        body.appendChild(cur);
+    if(mode === 'prompt'){
+      if(ci === 0){
+        currentP = document.createElement('p');
+        currentP.className = 'log-line';
+        currentP.innerHTML = '<span class="log-idx">['+block.n+']</span> <span class="log-prompt">radha@dev:~$</span> <span class="typed"></span><span class="log-cursor"></span>';
+        body.appendChild(currentP);
+      }
+      var typedSpan = currentP.querySelector('.typed');
+      ci++;
+      typedSpan.textContent = block.prompt.slice(0, ci);
+      if(ci >= block.prompt.length){
+        currentP.querySelector('.log-cursor').remove();
+        mode = 'out'; oi = 0; ci = 0;
+        setTimeout(tick, 260);
         return;
       }
-      var block = blocks[bi];
+      setTimeout(tick, 24 + Math.random()*28);
+      return;
+    }
 
-      if(mode === 'prompt'){
-        if(ci === 0){
-          currentP = document.createElement('p');
-          currentP.className = 'term-line';
-          currentP.innerHTML = '<span class="term-prompt">radha@dev:~$</span> <span class="typed"></span><span class="term-cursor"></span>';
-          body.appendChild(currentP);
-        }
-        var typedSpan = currentP.querySelector('.typed');
-        ci++;
-        typedSpan.textContent = block.prompt.slice(0, ci);
-        if(ci >= block.prompt.length){
-          currentP.querySelector('.term-cursor').remove();
-          mode = 'out'; oi = 0; ci = 0;
-          setTimeout(tick, 260);
-          return;
-        }
-        setTimeout(tick, 26 + Math.random()*30);
+    if(mode === 'out'){
+      if(oi >= block.out.length){
+        bi++; mode = 'prompt'; ci = 0;
+        setTimeout(tick, 200);
         return;
       }
-
-      if(mode === 'out'){
-        if(oi >= block.out.length){
-          bi++; mode = 'prompt'; ci = 0;
-          setTimeout(tick, 200);
-          return;
-        }
-        var line = document.createElement('p');
-        line.className = 'term-line term-out' + (block.accent ? ' accent' : '');
-        body.appendChild(line);
-        line.textContent = block.out[oi];
-        oi++;
-        setTimeout(tick, 130);
-        return;
-      }
+      var line = document.createElement('p');
+      line.className = 'log-line log-out' + (block.accent ? ' accent' : '');
+      body.appendChild(line);
+      line.textContent = block.out[oi];
+      oi++;
+      setTimeout(tick, 120);
+      return;
     }
-    tick();
-  })();
+  }
+  tick();
+})();
 
-  /* ---------- radar chart (native SVG) ---------- */
-  (function(){
-    var svgNS = 'http://www.w3.org/2000/svg';
-    var cx = 110, cy = 105, maxR = 78;
-    var axes = [
-      { label: 'Frontend', value: 8 },
-      { label: 'AI / RAG', value: 8 },
-      { label: 'Backend', value: 7 },
-      { label: 'Cloud', value: 6 },
-      { label: 'DSA', value: 7 },
-      { label: 'Design', value: 8 }
-    ];
-    var n = axes.length;
-    function pt(i, r){
-      var angle = (Math.PI * 2 * i / n) - Math.PI/2;
-      return [cx + r*Math.cos(angle), cy + r*Math.sin(angle)];
-    }
-    var grid = document.getElementById('radarGrid');
-    [0.25,0.5,0.75,1].forEach(function(frac){
-      var poly = document.createElementNS(svgNS, 'polygon');
-      var pts = [];
-      for(var i=0;i<n;i++){ pts.push(pt(i, maxR*frac).join(',')); }
-      poly.setAttribute('points', pts.join(' '));
-      poly.setAttribute('stroke-width', '1');
-      grid.appendChild(poly);
+/* ---------- radar / scan chart ---------- */
+(function(){
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var cx=110, cy=100, maxR=74;
+  var axes = [
+    { label:'Frontend', value:8 },
+    { label:'AI / RAG', value:8 },
+    { label:'Backend', value:7 },
+    { label:'Cloud', value:6 },
+    { label:'DSA', value:7 },
+    { label:'Design', value:8 }
+  ];
+  var n = axes.length;
+  function pt(i, r){ var a = (Math.PI*2*i/n) - Math.PI/2; return [cx+r*Math.cos(a), cy+r*Math.sin(a)]; }
+
+  var grid = document.getElementById('radarGrid');
+  [0.25,0.5,0.75,1].forEach(function(f){
+    var poly = document.createElementNS(svgNS,'polygon');
+    var pts=[]; for(var i=0;i<n;i++){ pts.push(pt(i,maxR*f).join(',')); }
+    poly.setAttribute('points', pts.join(' ')); poly.setAttribute('stroke-width','1');
+    grid.appendChild(poly);
+  });
+  for(var i=0;i<n;i++){
+    var p = pt(i,maxR);
+    var line = document.createElementNS(svgNS,'line');
+    line.setAttribute('x1',cx); line.setAttribute('y1',cy);
+    line.setAttribute('x2',p[0]); line.setAttribute('y2',p[1]);
+    line.setAttribute('stroke-width','1');
+    grid.appendChild(line);
+  }
+
+  var poly = document.getElementById('radarPoly');
+  var pts = axes.map(function(a,i){ return pt(i,(a.value/10)*maxR); });
+  poly.setAttribute('points', pts.map(function(p){return p.join(',');}).join(' '));
+
+  var ptsGroup = document.getElementById('radarPoints');
+  pts.forEach(function(p){
+    var c = document.createElementNS(svgNS,'circle');
+    c.setAttribute('cx',p[0]); c.setAttribute('cy',p[1]); c.setAttribute('r',3);
+    c.setAttribute('fill','#8a2f28');
+    ptsGroup.appendChild(c);
+  });
+
+  var labels = document.getElementById('radarLabels');
+  axes.forEach(function(a,i){
+    var p = pt(i, maxR+16);
+    var t = document.createElementNS(svgNS,'text');
+    t.setAttribute('x',p[0]); t.setAttribute('y',p[1]);
+    t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
+    t.setAttribute('class','radar-axis-label'); t.textContent = a.label;
+    labels.appendChild(t);
+  });
+})();
+
+/* ---------- scroll reveals ---------- */
+(function(){
+  var els = document.querySelectorAll('.reveal, .scan-card');
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.classList.add('in-view'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in-view'); obs.unobserve(e.target); }
     });
-    for(var i=0;i<n;i++){
-      var p = pt(i, maxR);
-      var line = document.createElementNS(svgNS, 'line');
-      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
-      line.setAttribute('x2', p[0]); line.setAttribute('y2', p[1]);
-      line.setAttribute('stroke-width', '1');
-      grid.appendChild(line);
-    }
+  }, { threshold:0.15 });
+  els.forEach(function(el){ obs.observe(el); });
+})();
 
-    var poly = document.getElementById('radarPoly');
-    var pts = axes.map(function(a,i){ return pt(i, (a.value/10)*maxR); });
-    poly.setAttribute('points', pts.map(function(p){return p.join(',');}).join(' '));
-
-    var ptsGroup = document.getElementById('radarPoints');
-    pts.forEach(function(p){
-      var c = document.createElementNS(svgNS, 'circle');
-      c.setAttribute('cx', p[0]); c.setAttribute('cy', p[1]); c.setAttribute('r', 3);
-      c.setAttribute('fill', '#2FD9C4');
-      ptsGroup.appendChild(c);
-    });
-
-    var labels = document.getElementById('radarLabels');
-    axes.forEach(function(a, i){
-      var p = pt(i, maxR + 16);
-      var t = document.createElementNS(svgNS, 'text');
-      t.setAttribute('x', p[0]); t.setAttribute('y', p[1]);
-      t.setAttribute('text-anchor', 'middle');
-      t.setAttribute('dominant-baseline', 'middle');
-      t.setAttribute('class', 'radar-axis-label');
-      t.textContent = a.label;
-      labels.appendChild(t);
-    });
-
-    var card = document.getElementById('radarCard');
-    if(reduceMotion){ card.classList.add('in-view'); }
-    else if('IntersectionObserver' in window){
-      var obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){ card.classList.add('in-view'); obs.unobserve(card); }
-        });
-      }, { threshold: 0.35 });
-      obs.observe(card);
-    } else {
-      card.classList.add('in-view');
-    }
-  })();
+/* ---------- case card expand/collapse ---------- */
+document.querySelectorAll('.toggle-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var card = btn.closest('.case-card');
+    var expanded = card.classList.toggle('expanded');
+    btn.setAttribute('aria-expanded', expanded);
+    btn.firstChild.textContent = expanded ? 'Close report ' : 'Pull full report ';
+  });
+});
 </script>
 
 </body>
